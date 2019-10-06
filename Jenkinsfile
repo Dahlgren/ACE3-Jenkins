@@ -7,11 +7,14 @@ pipeline {
     stage('Checkout') {
       steps {
         dir('x/cba') {
-          git url: 'https://github.com/CBATeam/CBA_A3.git', branch: 'master'
+          git url: 'https://github.com/CBATeam/CBA_A3.git', branch: 'master', changelog: false, poll: false
         }
 
         dir('z/ace') {
-          git url: 'https://github.com/acemod/ACE3.git', branch: 'master'
+          script {
+            def aceGit = git url: 'https://github.com/acemod/ACE3.git', branch: 'master', changelog: true, poll: true
+            env.ACE_COMMIT = aceGit.GIT_COMMIT
+          }
 
           // Fix legacy pboproject parameter 
           powershell '((Get-Content -path tools/make.py -Raw) -replace \'"\\+X"\', \'"+G"\') | Set-Content -Path tools/make.py'
@@ -54,6 +57,12 @@ pipeline {
         bat 'move z/ace/release/@ace @ace'
       }
     }
+
+    stage('Steam Workshop') {
+      steps {
+        publishSteamWorkshop '1882627645', '@ace', "https://github.com/acemod/ACE3/commit/${env.ACE_COMMIT}"
+      }
+    }
   }
 
   post { 
@@ -71,4 +80,8 @@ pipeline {
       bat 'subst P: /D'
     }
   }
+}
+
+void publishSteamWorkshop(String id, String mod, String changeNote) {
+  bat "\"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\Arma 3 Tools\\Publisher\\PublisherCmd.exe\" update /changeNote:$changeNote /id:$id /path:$mod"
 }
