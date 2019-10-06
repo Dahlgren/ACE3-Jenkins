@@ -47,6 +47,9 @@ pipeline {
 
     stage('Build') {
       steps {
+        // Set correct excludes for ACE in pboproject
+        bat 'regedit /S %WORKSPACE%\\pboproject_ace.reg'
+
         // Mount P: drive
         bat 'subst P: .'
 
@@ -67,6 +70,9 @@ pipeline {
 
   post { 
     always {
+      // Restore default excludes in pboproject
+      bat 'regedit /S %WORKSPACE%\\pboproject_default.reg'
+
       // Archive built mod on success
       archiveArtifacts allowEmptyArchive: true, artifacts: '@ace/**/*'
 
