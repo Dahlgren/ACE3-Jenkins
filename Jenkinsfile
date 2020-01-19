@@ -3,6 +3,10 @@ pipeline {
     label 'mikero'
   }
 
+  environment {
+    PYTHONUNBUFFERED = '1'
+  }
+
   stages {
     stage('Checkout') {
       steps {
