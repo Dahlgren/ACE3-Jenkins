@@ -66,9 +66,6 @@ pipeline {
 
   post { 
     always {
-      // Restore default excludes in pboproject
-      bat 'regedit /S %WORKSPACE%\\pboproject_default.reg'
-
       // Archive built mod on success
       archiveArtifacts allowEmptyArchive: true, artifacts: '@ace/**/*'
 
