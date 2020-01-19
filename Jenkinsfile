@@ -16,10 +16,6 @@ pipeline {
             env.ACE_COMMIT = aceGit.GIT_COMMIT
           }
 
-          // Fix legacy pboproject parameter 
-          powershell '((Get-Content -path tools/make.py -Raw) -replace \'"\\+X"\', \'"+G"\') | Set-Content -Path tools/make.py'
-          powershell '((Get-Content -path tools/make.py -Raw) -replace \'"-X"\', \'"-G"\') | Set-Content -Path tools/make.py'
-
           // Set bad exit code on error
           powershell '((Get-Content -path tools/make.py -Raw) -replace \'sys.exit\\(0\\)\', \'sys.exit(len(failedBuilds))\') | Set-Content -Path tools/make.py'
         }
