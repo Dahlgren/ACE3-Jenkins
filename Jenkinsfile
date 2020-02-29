@@ -57,7 +57,7 @@ pipeline {
         bat 'subst P: .'
 
         // Build ACE with CI exit status and external files check enabled
-        bat 'python3\\python.exe z/ace/tools/make.py ci checkexternal'
+        bat 'python3\\python.exe z/ace/tools/make.py ci'
 
         // Move built mod to root of workspace
         bat 'move z/ace/release/@ace @ace'
