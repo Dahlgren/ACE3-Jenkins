@@ -44,6 +44,7 @@ pipeline {
         // Link RHS Data
         bat 'mklink /j rhsafrf %RHS_DATA%\\rhsafrf'
         bat 'mklink /j rhsgref %RHS_DATA%\\rhsgref'
+        bat 'mklink /j rhssaf %RHS_DATA%\\rhssaf'
         bat 'mklink /j rhsusf %RHS_DATA%\\rhsusf'
       }
     }
