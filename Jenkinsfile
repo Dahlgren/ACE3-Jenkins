@@ -19,12 +19,6 @@ pipeline {
             def aceGit = git url: 'https://github.com/acemod/ACE3.git', branch: 'master', changelog: true, poll: true
             env.ACE_COMMIT = aceGit.GIT_COMMIT
           }
-
-           // Fix legacy makepbo parameter 
-          powershell '((Get-Content -path tools/make.py -Raw) -replace \'"-N",\', \'\') | Set-Content -Path tools/make.py'
-
-          // Set bad exit code on error
-          powershell '((Get-Content -path tools/make.py -Raw) -replace \'sys.exit\\(0\\)\', \'sys.exit(len(failedBuilds))\') | Set-Content -Path tools/make.py'
         }
       }
     }
