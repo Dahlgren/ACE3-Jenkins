@@ -35,6 +35,9 @@ pipeline {
         // Link Arma 3 Data
         bat 'mklink /j a3 %A3_DATA%\\a3'
 
+        // Link dummy CDLC data
+        bat 'mklink /j vn z\\ace\\include\\vn'
+
         // Link RHS Data
         bat 'mklink /j rhsafrf %RHS_DATA%\\rhsafrf'
         bat 'mklink /j rhsgref %RHS_DATA%\\rhsgref'
@@ -45,9 +48,6 @@ pipeline {
 
     stage('Build') {
       steps {
-        // Set correct excludes for ACE in pboproject
-        bat 'regedit /S %WORKSPACE%\\pboproject_ace.reg'
-
         // Mount P: drive
         bat 'subst P: .'
 
