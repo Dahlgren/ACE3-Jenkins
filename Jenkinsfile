@@ -36,7 +36,8 @@ pipeline {
         bat 'mklink /j a3 %A3_DATA%\\a3'
 
         // Link dummy CDLC data
-        bat 'mklink /j vn z\\ace\\include\\vn'
+        bat 'mklink /j gm z\\ace\\tools\\pDummies\\gm'
+        bat 'mklink /j vn z\\ace\\tools\\pDummies\\vn'
 
         // Link RHS Data
         bat 'mklink /j rhsafrf %RHS_DATA%\\rhsafrf'
