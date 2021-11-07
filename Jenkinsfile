@@ -19,6 +19,11 @@ pipeline {
             def aceGit = git url: 'https://github.com/acemod/ACE3.git', branch: 'master', changelog: true, poll: true
             env.ACE_COMMIT = aceGit.GIT_COMMIT
           }
+
+           // Fix legacy registry settings for exclusion
+          powershell '((Get-Content -path tools/make.py -Raw) -replace "m_exclude_compression", "wildcard_exclude_from_compression") | Set-Content -Path tools/make.py'
+          powershell '((Get-Content -path tools/make.py -Raw) -replace "m_exclude2", "wildcard_exclude_from_pbo_unbinarised_missions") | Set-Content -Path tools/make.py'
+          powershell '((Get-Content -path tools/make.py -Raw) -replace "m_exclude", "wildcard_exclude_from_pbo_normal") | Set-Content -Path tools/make.py'
         }
       }
     }
