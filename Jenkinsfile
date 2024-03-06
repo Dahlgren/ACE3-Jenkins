@@ -44,6 +44,7 @@ pipeline {
         bat 'mklink /j gm z\\ace\\tools\\pDummies\\gm'
         bat 'mklink /j vn z\\ace\\tools\\pDummies\\vn'
         bat 'mklink /j WW2 z\\ace\\tools\\pDummies\\WW2'
+        bat 'mklink /j CUP z\\ace\\tools\\pDummies\\CUP'
 
         // Link RHS Data
         bat 'mklink /j rhsafrf %RHS_DATA%\\rhsafrf'
